@@ -117,5 +117,5 @@ client.close()
 
 ## Result:
 
-Thus the study on Client Server Chat Applications has been performed
+Thus the study on Client Server Chat Applications has been performed .
 
