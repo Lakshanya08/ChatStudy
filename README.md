@@ -79,40 +79,31 @@ Client-server chat applications are foundational to real-time communication over
 ## Server:
 ```
 import socket
-server = socket.socket()
-server.bind(("127.0.0.1", 5555))
-server.listen(1)
-print("Server is waiting for connection...")
-conn, addr = server.accept()
-print("Connected with", addr)
+s=socket.socket()
+s.bind(('localhost',8000))
+s.listen(5)
+c,addr=s.accept()
 while True:
-    data = conn.recv(1024).decode()
-    if not data or data.lower() == "exit":
-        print("Client disconnected.")
-        break
-    print("Client:", data)
-    msg = input("Server: ")
-    conn.send(msg.encode())
-conn.close()
+    ClientMessage=c.recv(1024).decode()
+    print("Client > ",ClientMessage)
+    msg=input("Server > ")
+    c.send(msg.encode())
 ```
+
 ## Client:
 ```
 import socket
-client = socket.socket()
-client.connect(("127.0.0.1", 5555))
-print("Connected to server.")
+s=socket.socket()
+s.connect(('localhost',8000))
 while True:
-    msg = input("Client: ")
-    client.send(msg.encode())
-    if msg.lower() == "exit":
-        break
-    data = client.recv(1024).decode()
-    print("Server:", data)
-client.close()
+    msg=input("Client > ")
+    s.send(msg.encode())
+    print("Server > ",s.recv(1024).decode())
 ```
 ## Output:
 
-<img width="1919" height="1077" alt="image" src="https://github.com/user-attachments/assets/736280df-6df4-44c3-9c20-6c00a43075b1" />
+<img width="1919" height="1031" alt="image" src="https://github.com/user-attachments/assets/8556a4f8-d869-4884-b9d2-f0217836b4b7" />
+
 
 
 ## Result:
