@@ -76,7 +76,7 @@ Client-server chat applications are foundational to real-time communication over
 
 ## Program:
 
-## Server:
+## Client:
 ```
 import socket
 s=socket.socket()
@@ -90,7 +90,7 @@ while True:
     c.send(msg.encode())
 ```
 
-## Client:
+## Server:
 ```
 import socket
 s=socket.socket()
