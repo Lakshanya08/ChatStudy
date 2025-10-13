@@ -79,30 +79,32 @@ Client-server chat applications are foundational to real-time communication over
 ## Client:
 ```
 import socket
+from datetime import datetime
 s=socket.socket()
-s.bind(('localhost',8000))
+s.bind(('localhost',7000))
 s.listen(5)
 c,addr=s.accept()
-while True:
-    ClientMessage=c.recv(1024).decode()
-    print("Client > ",ClientMessage)
-    msg=input("Server > ")
-    c.send(msg.encode())
+print("Client Address : ",addr)
+now = datetime.now()
+c.send(now.strftime("%d/%m/%Y %H:%M:%S").encode())
+ack=c.recv(1024).decode()
+if ack:
+    print(ack)
+c.close()
 ```
 
 ## Server:
 ```
 import socket
 s=socket.socket()
-s.connect(('localhost',8000))
-while True:
-    msg=input("Client > ")
-    s.send(msg.encode())
-    print("Server > ",s.recv(1024).decode())
+s.connect(('localhost',7000))
+print(s.getsockname())
+print(s.recv(1024).decode())
+s.send("acknowledgement recived from the server".encode())
 ```
 ## Output:
 
-<img width="1919" height="1031" alt="image" src="https://github.com/user-attachments/assets/8556a4f8-d869-4884-b9d2-f0217836b4b7" />
+<img width="1918" height="1077" alt="image" src="https://github.com/user-attachments/assets/7c4f7234-1456-4fd3-bb34-9798d9423f8c" />
 
 
 
